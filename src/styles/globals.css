@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --gold: #D4AF37;
+  --maroon: #6B1E1E;
+  --ivory: #FAF7F2;
+  --champagne: #E8D5A9;
+  --dark: #111111;
+  --dark-secondary: #1A1A1A;
+
+  --shadow-luxury:
+    0 20px 60px rgba(0, 0, 0, .15);
+}
+
+/* ---------- Global ---------- */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--ivory);
+}
+
+h1,
+h2,
+h3,
+h4,
+.coupleName, .eventDate {
+  font-family: "Cinzel", serif;
+}
+
+p,
+button,
+span {
+  font-family: "Cormorant Garamond", serif;
+}
+
+/* ---------- Hero Background ---------- */
+
+.hero-bg {
+  animation: heroZoom 25s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.12);
+  }
+}
+
+/* ---------- Floating Particles ---------- */
+
+.floating-particle {
+  position: absolute;
+
+  bottom: -20px;
+
+  border-radius: 9999px;
+
+  background:
+    radial-gradient(
+      circle,
+      #fff5cc 0%,
+      #f4d66a 40%,
+      #d4af37 70%
+    );
+
+  opacity: 0;
+
+  filter: blur(0.7px);
+
+  mix-blend-mode: screen;
+
+  box-shadow:
+    0 0 12px #d4af37,
+    0 0 24px #d4af37,
+    0 0 48px rgba(212, 175, 55, .7),
+    0 0 96px rgba(212, 175, 55, .5);
+
+  animation:
+    floatParticle linear infinite,
+    twinkle 2s ease-in-out infinite;
+}
+
+/* Floating Motion */
+
+@keyframes floatParticle {
+
+  0% {
+    transform:
+      translateY(0)
+      translateX(0);
+
+    opacity: 0;
+  }
+
+  10% {
+    opacity: .3;
+  }
+
+  50% {
+    transform:
+      translateY(-50vh)
+      translateX(20px);
+
+    opacity: .5;
+  }
+
+  100% {
+    transform:
+      translateY(-120vh)
+      translateX(-20px);
+
+    opacity: 0;
+  }
+
+}
+
+/* Twinkle */
+
+@keyframes twinkle {
+
+  0% {
+    opacity: .3;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: .3;
+  }
+
+}
+
+@keyframes destinyDrift {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-20px);
+  }
+}
+
+.destiny-stars {
+  animation: destinyDrift 20s ease-in-out infinite alternate;
+}
+
+.story-particle {
+  position: absolute;
+
+  border-radius: 999px;
+
+  background: #d4af37;
+
+  box-shadow:
+    0 0 10px #d4af37,
+    0 0 20px rgba(212,175,55,.7);
+
+  animation: storyFloat linear infinite;
+}
+
+@keyframes storyFloat {
+
+  from {
+    transform:
+      translateY(0px)
+      translateX(0px);
+
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  to {
+    transform:
+      translateY(-120vh)
+      translateX(30px);
+
+    opacity: 0;
+  }
+}
+
+.petal {
+  position: absolute;
+
+  color: #d4af37;
+
+  animation:
+    petalFloat linear infinite;
+}
+
+@keyframes petalFloat {
+  from {
+    transform:
+      translateY(-10vh)
+      rotate(0deg);
+
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  to {
+    transform:
+      translateY(120vh)
+      rotate(360deg);
+
+    opacity: 0;
+  }
+}
+.music-spin {
+  animation: musicSpin 8s linear infinite;
+}
+
+@keyframes musicSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
