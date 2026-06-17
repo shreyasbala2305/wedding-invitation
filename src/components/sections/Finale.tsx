@@ -384,6 +384,8 @@ const Finale = () => {
               text-[#111]
               font-medium
               hover:scale-[1.03]
+              hover:bg-transparent border border-[#D4AF37]
+              hover:text-[#D4AF37] 
               transition-transform
               duration-300
             "

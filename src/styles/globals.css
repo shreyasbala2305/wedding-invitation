@@ -39,6 +39,10 @@ span {
   font-family: "Cormorant Garamond", serif;
 }
 
+p{
+  font-weight: 600;
+}
+
 /* ---------- Hero Background ---------- */
 
 .hero-bg {
