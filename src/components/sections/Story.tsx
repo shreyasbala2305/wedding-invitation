@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import storyImageDesktop from "../../assets/images/couple/story-couple-desktop.jpg";
 import storyImage from "../../assets/images/couple/story-couple-2.jpg";
 import FloatingParticles from "../common/FloatingParticles";
 
@@ -9,17 +9,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Story = () => {
   const sectionRef = useRef<HTMLElement>(null);
-
   const scene1Ref = useRef<HTMLDivElement>(null);
   const scene2Ref = useRef<HTMLDivElement>(null);
   const scene3Ref = useRef<HTMLDivElement>(null);
-
   const imageRef = useRef<HTMLImageElement>(null);
-
   const namesRef = useRef<HTMLDivElement>(null);
   const leftPathRef = useRef<HTMLDivElement>(null);
   const rightPathRef = useRef<HTMLDivElement>(null);
   const destinyGlowRef = useRef<HTMLDivElement>(null);
+  const imageRevealRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -32,6 +30,7 @@ const Story = () => {
           pin: true,
         },
       });
+      
       gsap.to(".storyGlow", {
         scale: 1.25,
         duration: 4,
@@ -132,16 +131,14 @@ const Story = () => {
           "<"
         )
 
-        .fromTo(
-          imageRef.current,
+         .fromTo(
+          imageRevealRef.current,
           {
-            scale: 1.15,
             opacity: 0,
           },
           {
-            scale: 1,
             opacity: 1,
-            duration: 2,
+            duration: 0.8,
           }
         )
 
@@ -158,6 +155,20 @@ const Story = () => {
           }
         )
 
+        .fromTo(
+          imageRef.current,
+          {
+            scale: 1.25,
+            filter: "blur(12px)",
+          },
+          {
+            scale: 1,
+            filter: "blur(0px)",
+            duration: 1,
+          },
+          "<"
+        )
+        
         .fromTo(
           namesRef.current,
           {
@@ -177,6 +188,7 @@ const Story = () => {
 
   return (
     <section
+      id="story"
       ref={sectionRef}
       className="
         relative
@@ -260,25 +272,45 @@ const Story = () => {
 
       {/* Background Image */}
 
-      <img
-        loading="lazy"
-        ref={imageRef}
-        src={storyImage}
-        alt=""
+      <div
+        ref={imageRevealRef}
         className="
           absolute
           inset-0
-          w-full
-          h-full
-          object-cover
           opacity-0
-          bg-[radial-gradient(circle_at_center,transparent_20%,rgba(0,0,0,.75)_100%)]
+          z-[1]
         "
-      />
+      >
+        <picture className="absolute inset-0">
+          <source
+            media="(min-width:768px)"
+            srcSet={storyImageDesktop}
+          />
+
+          <img
+            src={storyImage}
+            className="
+              absolute
+              inset-0
+
+              w-full
+              h-full
+
+              object-cover
+
+              blur-[2px]
+
+              scale-110
+            "
+          />
+        </picture>
+      </div>
       <div
         className="
           absolute
           inset-0
+
+          z-[2]
 
           bg-[radial-gradient(circle_at_center,transparent_20%,rgba(0,0,0,.75)_100%)]
         "
@@ -288,7 +320,10 @@ const Story = () => {
         className="
           absolute
           inset-0
-          bg-black/50
+
+          z-[2]
+
+          bg-black/60
         "
       />
 
@@ -323,7 +358,7 @@ const Story = () => {
         className="
           absolute
           inset-0
-
+          z-[5]
           flex
           items-center
           justify-center
@@ -350,7 +385,7 @@ const Story = () => {
         className="
           absolute
           inset-0
-
+          z-[5]
           flex
           items-center
           justify-center
@@ -377,7 +412,7 @@ const Story = () => {
         className="
           absolute
           inset-0
-
+          z-[5]
           flex
           items-center
           justify-center
@@ -404,7 +439,7 @@ const Story = () => {
         className="
           absolute
           inset-0
-
+          z-[5]
           flex
           flex-col
 

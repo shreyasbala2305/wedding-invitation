@@ -4,8 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import weddingData from "../../data/weddingData";
 
-import groomImage from "../../assets/images/groom/groom-1.jpg";
-import brideImage from "../../assets/images/bride/bride-1.jpg";
+import groomImage from "../../assets/images/groom/groom-2.jpg";
+import brideImage from "../../assets/images/bride/bride-2.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 

@@ -52,6 +52,14 @@ const Finale = () => {
     return () => ctx.revert();
   }, []);
 
+  const reliveJourney = () => {
+    document
+    .getElementById("story")
+    ?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -69,7 +77,7 @@ const Finale = () => {
     >
       {/* Watermark */}
 
-      <div
+      {/* <div
         className="
           absolute
 
@@ -89,7 +97,7 @@ const Finale = () => {
         "
       >
         TOGETHER
-      </div>
+      </div> */}
 
       {/* Glow */}
 
@@ -259,7 +267,7 @@ const Finale = () => {
               coupleName
 
               text-5xl
-              md:text-[110px]
+              md:text-[95px]
 
               leading-tight
 
@@ -368,7 +376,6 @@ const Finale = () => {
           "
         >
           <a
-            href="#invitation"
             className="
               px-10
               py-4
@@ -380,8 +387,9 @@ const Finale = () => {
               transition-transform
               duration-300
             "
+            onClick={reliveJourney}
           >
-            View Invitation
+            Relive The Journey
           </a>
 
           <a

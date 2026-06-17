@@ -8,16 +8,59 @@ import gallery3 from "../../assets/images/gallery/gallery-3.jpg";
 import gallery4 from "../../assets/images/gallery/gallery-4.jpg";
 import gallery5 from "../../assets/images/gallery/gallery-5.jpg";
 import gallery6 from "../../assets/images/gallery/gallery-6.jpg";
-import gallery7 from "../../assets/images/gallery/gallery-7.jpg";
-import gallery8 from "../../assets/images/gallery/gallery-8.jpg";
-import gallery9 from "../../assets/images/gallery/gallery-9.jpg";
+import gallery10 from "../../assets/images/gallery/gallery-10.jpg";
+import gallery11 from "../../assets/images/gallery/gallery-11.jpg";
+import gallery12 from "../../assets/images/gallery/gallery-12.jpg";
+import gallery13 from "../../assets/images/gallery/gallery-13.jpg";
+import gallery14 from "../../assets/images/gallery/gallery-14.jpg";
+import gallery15 from "../../assets/images/gallery/gallery-15.jpg";
+import gallery16 from "../../assets/images/gallery/gallery-16.jpg";
+
+const galleryImages = [
+  gallery1,
+  gallery2,
+  gallery3,
+  gallery4,
+  gallery5,
+  gallery6,
+  gallery10,
+  gallery11,
+  gallery12,
+  gallery13,
+  gallery14,
+  gallery15,
+  gallery16,
+];
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Gallery = () => {
   const sectionRef = useRef<HTMLElement>(null);
+
   const [selectedImage, setSelectedImage] =
     useState<string | null>(null);
+
+  const [activeIndex, setActiveIndex] =
+    useState(0);
+
+  const [isPaused, setIsPaused] =
+    useState(false);
+
+  useEffect(() => {
+    gsap.fromTo(
+      ".main-gallery-image",
+      {
+        opacity: 0.4,
+        scale: 1.02,
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 0.6,
+        ease: "power2.out",
+      }
+    );
+  }, [activeIndex]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -37,128 +80,24 @@ const Gallery = () => {
           },
         }
       );
-
-      gsap.utils
-        .toArray(".gallery-image")
-        .forEach((image: any) => {
-          gsap.fromTo(
-            image,
-            {
-              y: 100,
-              opacity: 0,
-              scale: 1.1,
-            },
-            {
-              y: 0,
-              opacity: 1,
-              scale: 1,
-              duration: 1,
-              ease: "power3.out",
-
-              scrollTrigger: {
-                trigger: image,
-                start: "top 85%",
-              }
-            }
-          );
-        });
     }, sectionRef);
-
-    if (window.innerWidth < 768) {
-      const images =
-        gsap.utils.toArray<HTMLElement>(
-          ".mobile-gallery-image"
-        );
-
-      gsap.set(images, {
-        opacity: 0,
-        scale: 1.03,
-      });
-
-      gsap.set(images[0], {
-        opacity: 1,
-        scale: 1,
-      });
-
-      const tl = gsap.timeline({
-        repeat: -1,
-      });
-
-      images.forEach((image, index) => {
-        if (index === 0) return;
-
-        tl.to(images[index - 1], {
-          opacity: 0,
-          scale: 1.08,
-          duration: 1.1,
-        });
-
-        tl.fromTo(
-          image,
-          {
-            opacity: 0,
-            scale: 1.05,
-          },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 1.2,
-          },
-          "<"
-        );
-
-        tl.to({}, { duration: 2.5 });
-      });
-
-      tl.to(images[images.length - 1], {
-        opacity: 0,
-        scale: 1.08,
-        duration: 1.2,
-      });
-
-      tl.fromTo(
-        images[0],
-        {
-          opacity: 0,
-          scale: 1.05,
-        },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 1.2,
-        }
-      );
-
-      // images.forEach((image: any, index) => {
-      //   if (index === 0) return;
-
-      //   tl.to(images[index - 1], {
-      //     opacity: 0,
-      //     scale: 1.05,
-      //     y: -40,
-      //     duration: 1,
-      //   });
-
-      //   tl.fromTo(
-      //     image,
-      //     {
-      //       opacity: 0,
-      //       scale: 1.1,
-      //       y: 40,
-      //     },
-      //     {
-      //       opacity: 1,
-      //       scale: 1,
-      //       y: 0,
-      //       duration: 1,
-      //     },
-      //     "<"
-      //   );
-      // });
-    }
 
     return () => ctx.revert();
   }, []);
+
+  useEffect(() => {
+    if (isPaused) return;
+
+    const timer = setInterval(() => {
+      setActiveIndex(prev =>
+        prev === galleryImages.length - 1
+          ? 0
+          : prev + 1
+      );
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [isPaused]);
 
   return (
     <>
@@ -219,17 +158,15 @@ const Gallery = () => {
             pointer-events-none
           "
         >
-          FOREVER
+          A ❦ T
         </div>
 
         <div
           className="
             relative
             z-10
-
             max-w-7xl
             mx-auto
-
             px-6
           "
         >
@@ -246,8 +183,8 @@ const Gallery = () => {
           >
             ✦ ✦ ✦
           </div>
-          {/* Heading */}
 
+          {/* Heading */}
           <div
             className="
               gallery-heading
@@ -301,318 +238,177 @@ const Gallery = () => {
             </p>
           </div>
 
-        {/* Desktop Gallery */}
-        <div className="hidden md:block">
-
-          {/* Hero Image */}
-
           <div
             className="
-              gallery-image
-              mb-10
-              overflow-hidden
-              rounded-[40px]
-              cursor-pointer
-              will-change-transform
-            "
-            onClick={() =>
-              setSelectedImage(gallery1)
-            }
-          >
-            <img
-              src={gallery1}
-              loading="lazy"
-              alt=""
-              className="
-                w-full
-
-                h-[320px]
-                md:h-[700px]
-
-                object-cover
-
-                transition-all
-                duration-700
-
-                hover:scale-105
-                active:scale-[0.98]
-              "
-            />
-          </div>
-
-          {/* Editorial Layout */}
-
-          <div
-            className="
-              grid
-              lg:grid-cols-2
-
-              gap-5
-              md:gap-8
-
-              mb-10
+              max-w-6xl
+              mx-auto
             "
           >
-            {/* <div
-              className="
-                gallery-image
-
-                overflow-hidden
-
-                rounded-[40px]
-
-                cursor-pointer
-              "
-              onClick={() =>
-                setSelectedImage(gallery4)
-              }
-            >
-              <img
-                src={gallery4}
-                alt=""
-                className="
-                  w-full
-
-                  md:h-[700px]
-
-                  object-cover
-
-                  transition-all
-                  duration-700
-
-                  hover:scale-105
-                  active:scale-[0.98]
-                "
-              />
-            </div> */}
-
             <div
               className="
-                gallery-image
+                relative
+
                 overflow-hidden
-                rounded-[40px]
-                cursor-pointer
-                will-change-transform
+
+                rounded-[36px]
+
+                bg-black
               "
-              onClick={() =>
-                setSelectedImage(gallery2)
-              }
             >
               <img
-                src={gallery2}
-                loading="lazy"
+                src={galleryImages[activeIndex]}
                 alt=""
                 className="
+                  main-gallery-image
                   w-full
-
-                  md:h-[700px]
-
+                  h-[60vh]
+                  md:h-[90vh]
                   object-cover
-
                   transition-all
-                  duration-700
-
-                  hover:scale-105
-                  active:scale-[0.98]
-                "
-              />
-            </div>
-
-            <div
-              className="
-                gallery-image
-                overflow-hidden
-                rounded-[40px]
-                cursor-pointer
-                will-change-transform
-              "
-              onClick={() =>
-                setSelectedImage(gallery3)
-              }
-            >
-              <img
-                src={gallery3}
-                loading="lazy"
-                alt=""
-                className="
-                  w-full
-
-                  md:h-[700px]
-
-                  object-cover
-
-                  transition-all
-                  duration-700
-
-                  hover:scale-105
-                  active:scale-[0.98]
-                "
-              />
-            </div>
-          </div>
-          </div>
-
-          {/* Final Memory Grid */}
-
-          <div
-            className="
-              hidden
-              md:grid
-
-              md:grid-cols-3
-
-              gap-8
-            "
-          >
-            {[
-              gallery4,
-              gallery5,
-              gallery6,
-              gallery7,
-              gallery8,
-              gallery9,
-            ].map((image, index) => (
-              <div
-                key={index}
-                className="
-                  gallery-image
-                  overflow-hidden
-                  rounded-[32px]
-                  cursor-pointer
-                  will-change-transform
+                  duration-1000
                 "
                 onClick={() =>
-                  setSelectedImage(image)
+                  setSelectedImage(
+                    galleryImages[activeIndex]
+                  )
                 }
-              >
-                <img
-                  src={image}
-                  loading="lazy"
-                  alt=""
-                  className="
-                    w-full
+              />
 
-                    h-[420px]
-
-                    object-cover
-
-                    transition-all
-                    duration-700
-
-                    hover:scale-105
-                  "
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* Memory Grid */}
-
-          <div
-            className="
-              md:hidden
-
-              relative
-
-              h-[70vh]
-
-              overflow-hidden
-
-              rounded-[32px]
-            "
-          >
-            {[
-              gallery1,
-              gallery2,
-              gallery3,
-              gallery4,
-              gallery5,
-              gallery6,
-              gallery7,
-              gallery8,
-              gallery9,
-            ].map((image, index) => (
               <div
-                key={index}
                 className="
-                  mobile-gallery-image
-                  pointer-events-none
                   absolute
                   inset-0
-                  will-change-transform
-                  cursor-pointer
+
+                  bg-gradient-to-t
+                  from-black/50
+                  via-transparent
+                  to-transparent
                 "
-                onClick={() =>
-                  setSelectedImage(image)
-                }
+              />
+
+              <div
+                className="
+                  absolute
+
+                  top-8
+                  left-8
+                "
               >
-                <img
-                  src={image}
-                  loading="lazy"
-                  alt=""
+                <p
                   className="
-                    w-full
-                    h-full
+                    text-[#D4AF37]
 
-                    object-cover
-                  "
-                />
+                    uppercase
 
-                <div
-                  className="
-                    absolute
-                    inset-0
+                    tracking-[6px]
 
-                    bg-gradient-to-t
-                    from-black/65
-                    via-transparent
-                    to-transparent
-                  "
-                />
-
-                <div
-                  className="
-                    absolute
-
-                    bottom-10
-                    left-6
-                    right-6
+                    text-sm
                   "
                 >
-                  <p
-                    className="
-                      text-[#D4AF37]
+                  Memory
+                </p>
 
-                      uppercase
+                <p
+                  className="
+                    text-white
 
-                      tracking-[6px]
-
-                      text-sm
-
-                      mb-2
-                    "
-                  >
-                    Memory 
-                  </p>
-
-                  <h3
-                    className="
-                      text-white
-
-                      text-3xl
-
-                      leading-tight
-                    "
-                  >
-                    A Moment To
-                    <br />
-                    Cherish Forever
-                  </h3>
-                </div>
+                    text-xl
+                    md:text-3xl
+                  "
+                >
+                  Forever Begins Here
+                </p>
               </div>
-            ))}
+            </div>
+
+            <div
+              className="
+                relative
+                flex
+                justify-center
+                items-center
+                h-[140px]
+                md:h-[180px]
+                -mt-14
+                z-20
+              "
+            >
+              {galleryImages.map((image, index) => {
+                let offset =
+                  index - activeIndex;
+
+                const total =
+                  galleryImages.length;
+
+                if (offset > total / 2)
+                  offset -= total;
+
+                if (offset < -total / 2)
+                  offset += total;
+                return (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setActiveIndex(index);
+
+                      setIsPaused(true);
+
+                      setTimeout(() => {
+                        setIsPaused(false);
+                      }, 10000);
+                    }}
+                    className={`
+                      absolute
+                      overflow-hidden
+                      rounded-[18px]
+                      transition-all
+                      duration-700 ease-out
+                      ${
+                        activeIndex === index
+                          ? "z-30"
+                          : "z-10"
+                      }
+                    `}
+                    style={{
+                      transform: `
+                        translateX(${
+                          window.innerWidth < 768
+                            ? offset * 55
+                            : offset * 110
+                        }px)
+                        scale(${
+                          activeIndex === index
+                            ? 1.15
+                            : 0.85
+                        })
+                        rotateY(${offset * -18}deg)
+                      `,
+                      opacity:
+                      Math.abs(offset) > 2
+                        ? 0
+                        : 1,
+                    }}
+                  >
+                    <img
+                      src={image}
+                      alt=""
+                      className="
+                        w-[65px]
+                        h-[90px]
+
+                        md:w-[90px]
+                        md:h-[130px]
+
+                        object-cover
+                      "
+                    />
+                  </button>
+                )}
+              )}
+            </div>
+
           </div>
-          </div>
+        </div>
         
       </section>
 
@@ -661,8 +457,19 @@ const Gallery = () => {
               right-6
 
               text-white
+              w-12
+              h-12
 
-              text-5xl
+              rounded-full
+
+              bg-black/40
+              backdrop-blur-sm
+
+              flex
+              items-center
+              justify-center
+
+              text-2xl
             "
           >
             ×
