@@ -13,6 +13,46 @@
     0 20px 60px rgba(0, 0, 0, .15);
 }
 
+/* Luxury Wedding Scrollbar */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #120707;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    #f4e7c5 0%,
+    #d4af37 35%,
+    #b8860b 100%
+  );
+
+  border-radius: 999px;
+
+  border: 2px solid #120707;
+
+  box-shadow:
+    0 0 8px rgba(212, 175, 55, 0.3),
+    0 0 16px rgba(212, 175, 55, 0.15);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    #fff4d6 0%,
+    #e0bb4f 35%,
+    #c9971a 100%
+  );
+}
+
+::-webkit-scrollbar-corner {
+  background: #120707;
+}
+
 /* ---------- Global ---------- */
 
 html {
